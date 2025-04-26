@@ -6,7 +6,7 @@ export default function HomeScreen() {
   const router = useRouter();
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>HOME!</Text>
+        <Text>HOME MAYBE!</Text>
         <Button title="Habits" onPress={() => router.push('/habits')} />
         <Button title="Resources" onPress={() => router.push('/resources')} />
     </View>
