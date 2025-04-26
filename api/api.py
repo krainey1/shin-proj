@@ -11,5 +11,9 @@ CORS(app)
 def test_point():
     return "making sure this works :)"
 
+@app.route("/login")
+def login():
+    return "cool placeholder"
+
 if __name__=='__main__':
     app.run(debug=True)

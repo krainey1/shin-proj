@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { View, Text, Button, TextInput } from 'react-native';
-import { useRouter } from 'expo-router';
+import {Stack, useRouter } from 'expo-router';
 
 export default function RegisterScreen() {
   const router = useRouter();
@@ -8,6 +8,8 @@ export default function RegisterScreen() {
   const [pass, setPass] = useState('');
   const [email, setEmail] = useState('');
   return (
+    <>
+    <Stack.Screen options={{ title: 'Create Your Account!' }} />
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Register an account!</Text>
       <TextInput 
@@ -27,5 +29,6 @@ export default function RegisterScreen() {
       />
       <Button title="Create Account" onPress={() => router.push('/home')} />
     </View>
+    </>
   );
 }
