@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import axios from 'axios';
+import axios from 'axios'; //because requests are a pain w/fetch
 import { View, Text, Button, TextInput } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -42,6 +42,31 @@ export default function LoginScreen() {
   const router = useRouter();  
   const [username, setUsername] = useState(''); //<- so we can track/save the state of the username!
   const [password, setPassword] = useState('');
+  
+  const loginHandler = (username, password) => {
+    if(username.trim() === '' || password.trim() === '')
+    {
+      alert('Please Enter Both Username and Password');
+      return;
+    }
+// === forces type coercion
+    axios.post('http://10.0.2.2:5000/login', {username: username, password: password})
+    .then(response => {console.log("Received Data:", response.data);
+      const userId = response.data.userId;
+      if(userId !== -1)
+      {
+        //asych stores everything as strings
+        storeData('userId', userId.toString())
+        router.replace('/home');
+      }
+      else 
+      {
+        alert('Invalid Username or password. Try again or Create Account!')
+      }
+    })
+    .catch(error => {console.error("Lost the Plot", error)})
+    
+  } 
   return (
     <>
     <Stack.Screen options={{ title: 'Login' }} />
@@ -57,7 +82,7 @@ export default function LoginScreen() {
         value = {password}
         onChangeText={(newText) => setPassword(newText)}
         />
-      <Button title="Login" onPress={() => router.replace('/home')} />
+      <Button title="Login" onPress={() => loginHandler(username, password)} />
       <Button title="Create Account" onPress={() => router.push('/register')} />
     </View>
     </>
