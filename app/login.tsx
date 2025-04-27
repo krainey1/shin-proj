@@ -1,9 +1,8 @@
-import React, {useState} from "react";
 import axios from 'axios'; //because requests are a pain w/fetch
-import { View, Text, Button, TextInput } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {storeData, getData} from './index';
+import React, { useState } from "react";
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { storeData } from './index';
 
 /*
 general plan: set userId in asyncstorage so we can reference user data later
@@ -50,21 +49,84 @@ export default function LoginScreen() {
   return (
     <>
     <Stack.Screen options={{ title: 'Login' }} />
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Login!</Text>
-      <TextInput 
+    <View style={styles.container}>
+      <Text style={styles.loginText}>Calm Stuff Everyday</Text>
+      <Image source={require('../assets/animations/happycat.gif')} style={styles.catImage}></Image>
+      <TextInput
+        style={styles.input} 
         placeholder="Username"
         value = {username}
         onChangeText={(newText) => setUsername(newText)}
         />
-        <TextInput 
+        <TextInput
+        style={styles.input} 
         placeholder="Password"
         value = {password}
         onChangeText={(newText) => setPassword(newText)}
         />
-      <Button title="Login" onPress={() => loginHandler(username, password)} />
-      <Button title="Create Account" onPress={() => router.push('/register')} />
+      {}
+      <View>
+        <TouchableOpacity style = {styles.customButton} onPress={() => loginHandler(username, password)}>
+          <Text style={styles.buttonText}>LOGIN</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.customButton} onPress={() => router.push('/register')} >
+        <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
+        </TouchableOpacity>
+      </View>
     </View>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    backgroundColor: '#F8DCC4',
+    alignItems: 'center',
+    padding: 20,
+  },
+  loginText: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    marginTop: 40,
+    textAlign: 'center'
+  },
+  customButton:{
+    width: 200,
+    height: 60,
+    backgroundColor: '#DD856F',
+    borderRadius: 23,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  catImage: {
+    width: 255,
+    height: 255,
+    marginLeft: 15
+
+  },
+  textContainer:{
+    flex: 1,
+    backgroundColor: '#E7E7E7',
+    alignItems: 'center',
+    padding: 20,
+  },
+  input: {
+    width: 300,
+    height: 50,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    backgroundColor: '#F5FCFF',
+    margin: 5,
+    fontSize: 18
+  },
+});
