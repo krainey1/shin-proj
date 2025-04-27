@@ -15,7 +15,7 @@ export default function HomeScreen() {
       "Today is full of possibilities!",
       "Your effort matters. Always.",
       "Go you!! <3",
-      "Penguin believes in you!",
+      "Your Pet believes in you!",
       "Sending good vibes your way :)"
     ];
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
