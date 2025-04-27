@@ -1,17 +1,99 @@
-import React from "react";
-import { View, Text, Button } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import React from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
   const router = useRouter();
+
+  const showHappyPopup = () => {
+    const messages = [
+      "You're doing amazing! <3",
+      "Keep smiling, sunshine! :)",
+      "One step at a time, you're getting there!",
+      "You're stronger than you think <3",
+      "Take a deep breath and feel the peace :)",
+      "Today is full of possibilities!",
+      "Your effort matters. Always.",
+      "Go you!! <3",
+      "Penguin believes in you!",
+      "Sending good vibes your way :)"
+    ];
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    Alert.alert("Happiness!", randomMessage);
+  };
+
   return (
     <>
-    <Stack.Screen options={{ title: 'Home' }} />
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>HOME MAYBE!</Text>
-        <Button title="Habits" onPress={() => router.push('/habits')} />
-        <Button title="Resources" onPress={() => router.push('/resources')} />
-    </View>
+      <Stack.Screen options={{ title: 'Home' }} />
+      <View style={styles.container}>
+        <Text style={styles.welcomeText}>Welcome!</Text>
+
+        {/* Image spacer */}
+        <View style={styles.imagePlaceholder}>
+          {/* Pet gif? */}
+        </View>
+
+        {}
+        <View style={styles.buttonGrid}>
+          <TouchableOpacity style={styles.customButton} onPress={showHappyPopup}>
+            <Text style={styles.buttonText}>Happy</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.customButton} onPress={() => router.push('/petInteract')}>
+            <Text style={styles.buttonText}>Pet Interact</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.customButton} onPress={() => router.push('/resources')}>
+            <Text style={styles.buttonText}>Resources</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.customButton} onPress={() => router.push('/habits')}>
+            <Text style={styles.buttonText}>Habits</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#E7E7E7',
+    alignItems: 'center',
+    padding: 20,
+  },
+  welcomeText: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginTop: 40,
+  },
+  imagePlaceholder: {
+    flex: 1,
+    width: '100%',
+    marginTop: 20,
+    marginBottom: 20,
+    backgroundColor: '#cccccc55', 
+    borderRadius: 20,
+  },
+  buttonGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: 30,
+  },
+  customButton: {
+    width: 140,
+    height: 60,
+    backgroundColor: '#DD856F',
+    borderRadius: 23,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
