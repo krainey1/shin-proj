@@ -16,7 +16,7 @@ general plan: set userId in asyncstorage so we can reference user data later
 */
 export default function LoginScreen() {
   //cool hooks ~ special functions that allow for state/navigation features inside components (useState & useRouter are hooks!)
-  //follow up -> components ~ the thing we are in right now! its function that returns UI
+  //follow up -> components ~ the thing we are in right now! its function that returns UI ~ <Text> is a react-native component
   //styling stuff ~ similar to traditional css but react-native-y
   //state ~ data belonging to components
   const router = useRouter();  
