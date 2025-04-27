@@ -1,10 +1,37 @@
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import axios from 'axios';
+import { storeData, getData } from './index';
+
+/*
+  keeping the ids straight:
+  cat - 1
+  panda - 2
+  penguin - 3
+  rock - 4
+  turtle - 5
+
+*/
 
 
 export default function PetScreen() {
-  const handlePress = (petKey) => {
+  const navigation = useNavigation();
+  const handlePress = async (petKey) => {
+    //lets use that asynchstorage and get our userid!
+    const id = await getData('userId')
+    axios.post('http://10.0.2.2:5000/selectPet', {userId: id, pet: petKey})
+    .then(response => {console.log("Received Data:", response.data);
+      const petId = response.data.petId;
+        //asych stores everything as strings
+        storeData('petId', petId.toString())
+        navigation.reset({ //some hocus pocus so people cant go back to account/creation login ~ resets the root to home
+          index: 0,
+          routes: [{ name: 'home' }] as any, 
+        });
+    })
+    .catch(error => {console.error("Lost the Plot", error)})
     console.log(`${petKey} picked!`);
   };
 

@@ -70,7 +70,24 @@ def register():
     #if account already exists tell em to kick rocks ~ -1
     return jsonify({"userId": -1})
 
-   
+@app.route("/selectPet", methods=["POST"])
+def pet():
+    dconn = connhelper()
+    data = request.get_json()
+    id = int(data["userId"])
+    pet = int(data["pet"])
+    print(id)
+    print(pet)
+    sql = "UPDATE user SET pet = %s, health = %s  WHERE iduser = %s"
+    vals = (pet, 100, id)
+    mycursor = dconn.cursor()
+    try:
+        mycursor.execute(sql, vals)
+        dconn.commit()
+    except Exception as e:
+        print(f"DB Error: {e}")
+        return "Error: The tables r getting quirky"
+    return jsonify({"petId": pet})
 
 if __name__=='__main__':
     app.run(debug=True)

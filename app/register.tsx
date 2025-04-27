@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { Stack, useRouter } from 'expo-router';
+import {Image} from 'expo-image';
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { storeData } from './index';
 
 

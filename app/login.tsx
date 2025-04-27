@@ -1,7 +1,8 @@
 import axios from 'axios'; //because requests are a pain w/fetch
 import { Stack, useRouter } from 'expo-router';
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import {Image} from 'expo-image';
+import {StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { storeData } from './index';
 
 /*
