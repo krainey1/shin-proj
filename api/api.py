@@ -32,10 +32,44 @@ def login():
     adr = (uname, pword)
     mycursor.execute(sql, adr)
     myresult = mycursor.fetchall()
-    if(myresult == []):
+    if(myresult == []): #returns empty list if not found
         return jsonify({"userId": -1})
-    user_id = myresult[0][0]
-    return jsonify({"userId": user_id})
+    user_id = myresult[0][0] #else extract it out of the list of tuples
+    return jsonify({"userId": user_id}) #creates response object with json data
+
+@app.route("/register", methods=["POST"])
+def register():
+    dconn = connhelper()
+    data = request.get_json() #grab user info
+    uname = data['username']
+    pword = data['password']
+    email = data['email']
+    mycursor = dconn.cursor()
+    sql = "SELECT iduser FROM user WHERE username = %s AND password=%s" #getting data from user table in db
+    adr = (uname, pword)
+    mycursor.execute(sql, adr)
+    myresult = mycursor.fetchall()
+    if(myresult == []):
+        #make account then /look up account and return userId
+        sql = "INSERT INTO user (username, password, email) VALUES (%s, %s, %s)"
+        vals = (uname, pword, email)
+        mycursor = dconn.cursor()
+        try:
+            mycursor.execute(sql, vals)
+            dconn.commit()
+            mycursor = dconn.cursor()
+            sql = "SELECT iduser FROM user WHERE username = %s AND password=%s" #getting data from user table in db
+            adr = (uname, pword)
+            mycursor.execute(sql, adr)
+            myresult = mycursor.fetchall()
+            user_id = myresult[0][0]
+            return jsonify({"userId": user_id})
+        except: 
+            return "Did not Insert"
+        return
+    #if account already exists tell em to kick rocks ~ -1
+    return jsonify({"userId": -1})
+
    
 
 if __name__=='__main__':

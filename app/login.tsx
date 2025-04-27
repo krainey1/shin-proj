@@ -3,27 +3,7 @@ import axios from 'axios'; //because requests are a pain w/fetch
 import { View, Text, Button, TextInput } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-//What is asynchstorage, cool thing that saves data when the app closes
-//func for setting key/value pair in async storage
-const storeData = async (key, value) => {
-  try {
-    await AsyncStorage.setItem(key, value);
-  } catch (error) {
-    console.error('Error saving data', error);
-  }
-};
-
-//getting key value pair from async storage
-const getData = async (key) => {
-  try {
-    const value = await AsyncStorage.getItem(key);
-    return value;
-  } catch (error) {
-    console.error('Error getting data', error);
-    return null;
-  }
-};
+import {storeData, getData} from './index';
 
 /*
 general plan: set userId in asyncstorage so we can reference user data later
