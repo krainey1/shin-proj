@@ -37,7 +37,7 @@ export default function createScreen() {
         <TextInput  value = {hname}
         onChangeText={(newText) => sethname(newText)} style = {{ width: '95%', marginTop: 15, marginBottom: 10, padding: 15, borderRadius: 10, borderColor: "black", borderWidth: 2, backgroundColor: "white"}} placeholder="Habit Name"/>
         <Text style= {{fontSize: 20, fontWeight:"500"}}> Days To Complete </Text>
-        <View style={{flexDirection: "row", alignItems:"center", gap:10, marginTop:10}}>
+        <View style={{marginLeft: 10, marginRight: 10,flexDirection: "row", alignItems:"center", gap:12, marginTop:10}}>
             {days?.map((item, index) => {
                 const isSelected = dayss.includes(item);
                 return (
@@ -53,7 +53,7 @@ export default function createScreen() {
                 <Text style = {{color: "white"}}>Yes</Text>  
             </Pressable>
         </View>
-        <Pressable style = {{marginRight: 25, marginLeft: 25, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
+        <Pressable style = {{width: '95%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
             <Text style = {{textAlign: "center", color: "white", fontWeight: "bold"}}> CREATE </Text>
         </Pressable>
     </View>
