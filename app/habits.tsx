@@ -2,7 +2,19 @@ import React, {useState} from "react";
 import {StyleSheet, View, Text, Button, ScrollView, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
 import AntDesign from '@expo/vector-icons/AntDesign';
- //Ant is very cool UI design library
+//Ant is very cool UI design library
+//Get day of current day of the week, for each habit extract the user days of their habits from their JSON, check against day of week, if match put habits in JSON object + send in response 
+//got to check if their habit name already exists back in create habit
+//Current 
+ /*
+   {days?.map((item, index) => {
+                 const isSelected = dayss.includes(item);
+                 return (
+                 <Pressable key={index} onPress = {() => handleDayPress(item)}style={{width: 40, height: 40, borderRadius: 5,  backgroundColor: isSelected ? "#FFCC00" : "#DD856F", justifyContent: "center", alignItems: "center"}}>
+                     <Text style = {{color: "white"}}>{item}</Text>
+                 </Pressable>
+                 );
+ */
 
 export default function HabitScreen() {
   const router = useRouter();

@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {StyleSheet, View, Text, TextInput, Button, ScrollView, Pressable } from 'react-native';
 import { Stack, useRouter } from 'expo-router';
+import axios from 'axios';
+import {getData} from './index';
 import AntDesign from '@expo/vector-icons/AntDesign';
  //Ant is very cool UI design library
 
@@ -30,6 +32,25 @@ export default function createScreen() {
         setReminder(0);
     }
   }
+
+  const addHabit = async (hname, dayss, reminder) => { //async execution
+    const id = await getData('userId'); //wait until we have the user id
+    if(hname.trim() === '' || dayss.length == 0)
+        {
+          alert('Please Enter A Name and The Days You Would Like to complete Your Habit');
+          return;
+        }
+    axios.post('http://10.0.2.2:5000/add', {userid: id, hname: hname, days: dayss, reminder: reminder}) //post request w/json body
+    .then(response => {console.log("Received Data:", response.data);
+      const check = response.data.valid;
+      if(check !== 0)
+      {
+        router.replace("/habits");
+      } 
+    })
+    .catch(error => {console.error("Lost the Plot", error)})
+
+  }
   return (
     <>
     <View style={{padding: 15}}>
@@ -53,7 +74,7 @@ export default function createScreen() {
                 <Text style = {{color: "white"}}>Yes</Text>  
             </Pressable>
         </View>
-        <Pressable style = {{width: '95%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
+        <Pressable onPress = {() => addHabit(hname, dayss, reminder)} style = {{width: '95%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
             <Text style = {{textAlign: "center", color: "white", fontWeight: "bold"}}> CREATE </Text>
         </Pressable>
     </View>
