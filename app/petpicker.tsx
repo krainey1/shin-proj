@@ -1,9 +1,9 @@
-import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
 import axios from 'axios';
-import { storeData, getData } from './index';
+import { Stack } from 'expo-router';
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getData, storeData } from './index';
 
 /*
   keeping the ids straight:
@@ -39,7 +39,8 @@ export default function PetScreen() {
     
     <View style={styles.container}>
       <Stack.Screen options={{ title: 'Pick Your Pet!' }} />
-      <Text style={styles.text}>Pet Picking! Touch a Pet to Pick One!</Text>
+      <Text style={styles.title}>Pet Picking!</Text>
+      <Text style={styles.text}>Touch a Pet to Pick One!</Text> 
 
       <View style={styles.grid}>
         {}
@@ -85,11 +86,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#F8DCC4',
     alignItems: 'center',
     padding: 20,
   },
+  title:{
+    fontSize: 35,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
   text: {
-    fontSize: 18,
+    fontSize: 25,
+    fontWeight: 'bold',
     marginBottom: 20,
   },
   grid: {

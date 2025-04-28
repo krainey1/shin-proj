@@ -33,6 +33,7 @@ export default function ResourceScreen() {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     paddingVertical: 20,
     alignItems: 'center',
     backgroundColor: '#E7E7E7',
