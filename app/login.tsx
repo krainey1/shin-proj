@@ -33,10 +33,13 @@ export default function LoginScreen() {
     axios.post('http://10.0.2.2:5000/login', {username: username, password: password})
     .then(response => {console.log("Received Data:", response.data);
       const userId = response.data.userId;
+      const petId = response.data.petId;
+      console.log(petId);
       if(userId !== -1)
       {
         //asych stores everything as strings
         storeData('userId', userId.toString())
+        storeData('petId', petId.toString()) //petId is in asynch storage, use getData where needed to take it out
         router.replace('/home');
       }
       else 

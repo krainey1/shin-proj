@@ -41,8 +41,8 @@ def login():
     check = bcrypt.checkpw(pword, myresult[0][2].encode('utf-8'))
     if(check):
         user_id = myresult[0][0] #else extract it out of the list of tuples
-        return jsonify({"userId": user_id}) #creates response object with json data
-    return jsonify({"userId": -1})
+        return jsonify({"userId": user_id, "petId": myresult[0][4]}) #creates response object with json data
+    return jsonify({"userId": -1, "petId": -1})
 
 @app.route("/register", methods=["POST"])
 def register():
