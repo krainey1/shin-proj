@@ -8,16 +8,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 //Ant is very cool UI design library
 //Get day of current day of the week, for each habit extract the user days of their habits from their JSON, check against day of week, if match put habits in JSON object + send in response 
 //got to check if their habit name already exists back in create habit
-//Current 
- /*
-   {days?.map((item, index) => {
-                 const isSelected = dayss.includes(item);
-                 return (
-                 <Pressable key={index} onPress = {() => handleDayPress(item)}style={{width: 40, height: 40, borderRadius: 5,  backgroundColor: isSelected ? "#FFCC00" : "#DD856F", justifyContent: "center", alignItems: "center"}}>
-                     <Text style = {{color: "white"}}>{item}</Text>
-                 </Pressable>
-                 );
- */
+
 
 export default function HabitScreen() {
   type Habit = {
@@ -30,6 +21,7 @@ export default function HabitScreen() {
   const router = useRouter();
   const [option, optionSet] = useState('Todo');
   const [habits, setHabits] = useState<Habit[]>([])
+  const [load, setLoad] = useState(true);
   
   const getHabits = async () => {
     const userid = await getData("userId") //Need to wait for the userId
@@ -38,6 +30,7 @@ export default function HabitScreen() {
       setHabits(response.data.habits || [])
     })
     .catch(error => {console.error("Lost the Plot", error)})
+    .finally(() => {setLoad(false)})
   }
   useFocusEffect(
     useCallback(() => {
@@ -62,7 +55,9 @@ export default function HabitScreen() {
           <Text style = {{textAlign:"center", color: option == 'Completed' ? "white": "black", fontSize: 15}}> Completed </Text>
         </Pressable>
       </View>
-      {habits.length === 0 ? (
+      { load? (
+  <Text style={{ textAlign: "center", fontSize: 16 }}> </Text>
+): habits.length === 0 ? (
           <Text style={{ textAlign: "center", fontSize: 16 }}> No Habits To Do For Today! Go ahead and add some! </Text>
         ) : (
       habits.map((habit, index) => (
