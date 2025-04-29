@@ -4,7 +4,11 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import bcrypt
+import datetime
 import mysql.connector
+
+#Keep it very cool n secure -> POST requests, Prepared Statements, Hashing (ignore the safety of asynch storage on the front)
+#Todo go down and close all those connections after use
 
 app = Flask(__name__)
 CORS(app)
@@ -30,7 +34,7 @@ def login():
     uname = data['username']
     pword = data['password']
     mycursor = dconn.cursor()
-    sql = "SELECT * FROM user WHERE username = %s" #getting data from user table in db
+    sql = "SELECT * FROM user WHERE username = %s" #getting data from user table in db, prepared statement to prevent sql injections -> or at least try
     adr = (uname,)
     mycursor.execute(sql, adr)
     myresult = mycursor.fetchall()
@@ -64,7 +68,6 @@ def register():
         pword = bcrypt.hashpw(bytes, salt) #final hash
         sql = "INSERT INTO user (username, password, email) VALUES (%s, %s, %s)"
         vals = (uname, pword, email)
-        mycursor = dconn.cursor()
         try:
             mycursor.execute(sql, vals)
             dconn.commit()
@@ -141,12 +144,39 @@ def add():
         print(f"DB Error: {e}")
         return jsonify({"valid": 0})
 
-
 #need to check day of the week + if task has been completed 
 @app.route("/getTodo", methods = ["POST"])
 def todo():
-
-    return 
+    now = datetime.datetime.now()
+    dowint = now.weekday()
+    dayweek = now.strftime("%A")
+    data = request.get_json()
+    user = data["id"]
+    dconn = connhelper()
+    sql = "SELECT * FROM user_habits where id = %s"
+    vals = (user,)
+    mycursor = dconn.cursor()
+    mycursor.execute(sql, vals) 
+    myresult = mycursor.fetchall() #omg records
+    if(myresult == []):
+        return jsonify({"habits": []}) #none in the system currently -> do nothing on front
+    #now we do the funny filtering 
+    habits = []
+    for r in myresult:
+        #get the list out
+        check = json.loads(r[2])
+        print(check)
+        for ele in check:
+            if(ele == dayweek):
+                habits.append({
+                    "id": r[0],
+                    "habit": r[1],
+                    "days": check,  # convert stringified list to actual list
+                    "reminder": r[3],
+                    "completed": r[4],
+                })
+    print(habits)
+    return jsonify({"habits": habits})
 
 if __name__=='__main__':
     app.run(debug=True)
