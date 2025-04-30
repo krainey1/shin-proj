@@ -27,7 +27,7 @@ export default function RemoveScreen() {
   
   const getHabits = async () => {
     const userid = await getData("userId") //Need to wait for the userId
-    axios.post('http://10.0.2.2:5000/selectAll', {id: userid})
+    axios.post('https://appapi-production.up.railway.app/selectAll', {id: userid})
     .then(response => {console.log("Received Data:", response.data);
       setHabits(response.data.habits || [])
     })
@@ -43,7 +43,7 @@ export default function RemoveScreen() {
   //removing habit
   const rhabit = async (habit: string) => {
     const userid = await getData("userId") //Need to wait for the userId
-    axios.post('http://10.0.2.2:5000/remove', {id: userid, habit: habit})
+    axios.post('https://appapi-production.up.railway.app/remove', {id: userid, habit: habit})
     .then(response => {console.log("Received Data:", response.data);
       if(response.data.valid == 1)
       {
@@ -109,7 +109,7 @@ export default function RemoveScreen() {
       </View>
        </View> 
        <Text style = {{fontSize: 20, marginTop: 10, fontWeight: "500", marginBottom: 8}}>Delete A Habit! </Text>
-      <Text style = {{fontWeight: "400"}}>All Existing Habits, Click one to Confirm Deletion! </Text>
+      <Text style = {{fontWeight: "400"}}>All Existing Habits, Tap one to Confirm Deletion! </Text>
       <View style = {{flexDirection: "row", alignItems: "center", gap:10, marginVertical: 8}}>
 
       </View>

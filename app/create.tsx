@@ -40,7 +40,7 @@ export default function createScreen() {
           alert('Please Enter A Name and The Days You Would Like to complete Your Habit');
           return;
         }
-    axios.post('http://10.0.2.2:5000/add', {userid: id, hname: hname, days: dayss, reminder: reminder}) //post request w/json body
+    axios.post('https://appapi-production.up.railway.app/add', {userid: id, hname: hname, days: dayss, reminder: reminder}) //post request w/json body
     .then(response => {console.log("Received Data:", response.data);
       const check = response.data.valid;
       if(check !== 0)

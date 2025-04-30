@@ -21,7 +21,7 @@ export default function PetScreen() {
   const handlePress = async (petKey) => {
     //lets use that asynchstorage and get our userid!
     const id = await getData('userId')
-    axios.post('http://10.0.2.2:5000/selectPet', {userId: id, pet: petKey})
+    axios.post('https://appapi-production.up.railway.app/selectPet', {userId: id, pet: petKey})
     .then(response => {console.log("Received Data:", response.data);
       const petId = response.data.petId;
         //asych stores everything as strings

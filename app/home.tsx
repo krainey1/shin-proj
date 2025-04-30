@@ -1,6 +1,16 @@
 import { Stack, useRouter } from 'expo-router';
-import React from "react";
+import React, {useEffect} from "react";
+import * as Notifications from 'expo-notifications';
+import {getData, storeData} from "./index";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -22,9 +32,49 @@ export default function HomeScreen() {
     Alert.alert("Happiness!", randomMessage);
   };
 
+  const scheduleNotificationOnce = async () => {
+    console.log("wtf2");
+    const alreadyScheduled = await getData("notifsOn");
+    console.log(alreadyScheduled);
+    if (!alreadyScheduled) {
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Time to check in!",
+          body: "How are you feeling?",
+        },
+        trigger: {
+          type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+          seconds: 60, // every 5 minutes for testing
+          repeats: true,
+        }
+      });
+      await storeData('notifsOn', 'true');
+      console.log("we getting here??")
+    }
+  };
+
+  useEffect(() => {
+    console.log("wtf");
+    async function prepareNotifications() {
+      const { status } = await Notifications.getPermissionsAsync();
+      if (status !== 'granted') {
+        const { status: newStatus } = await Notifications.requestPermissionsAsync();
+        if (newStatus !== 'granted') {
+          console.log("in here?")
+          alert('Permission for notifications was not granted.');
+          return;
+        }
+      }
+      // Now call your scheduling function
+      scheduleNotificationOnce();
+    }
+    prepareNotifications();
+  }, []);
+
   return (
     <>
       <Stack.Screen options={{ title: 'Home' }} />
+      
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome!</Text>
 

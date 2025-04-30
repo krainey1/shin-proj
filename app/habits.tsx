@@ -30,7 +30,7 @@ export default function HabitScreen() {
   
   const getHabits = async () => {
     const userid = await getData("userId") //Need to wait for the userId
-    axios.post('http://10.0.2.2:5000/getTodo', {id: userid})
+    axios.post('https://appapi-production.up.railway.app/getTodo', {id: userid})
     .then(response => {console.log("Received Data:", response.data);
       setHabits(response.data.habits || [])
     })
@@ -45,7 +45,7 @@ export default function HabitScreen() {
 
   const checkoff = async (habit: string) => {
     const userid = await getData("userId") //Need to wait for the userId
-    axios.post('http://10.0.2.2:5000/complete', {id: userid, habit: habit})
+    axios.post('https://appapi-production.up.railway.app/complete', {id: userid, habit: habit})
     .then(response => {console.log("Received Data:", response.data);
       if(response.data.valid == 1)
       {

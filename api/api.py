@@ -26,7 +26,7 @@ def connhelper(): #helper function to establish connection
     )
     return dbconn
 
-def mymidnightupdate():
+def mymidnightupdate(): #this only works when we have this running all night/deployed
     dconn = connhelper()
     sql = "UPDATE user_habits SET complete = 0  WHERE complete = 1"
     mycursor = dconn.cursor()

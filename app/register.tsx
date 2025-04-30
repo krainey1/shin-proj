@@ -21,13 +21,14 @@ export default function RegisterScreen() {
         return;
       }
   
-      axios.post('http://10.0.2.2:5000/register', {username: user, password: pass, email: email})
+      axios.post('https://appapi-production.up.railway.app/register', {username: user, password: pass, email: email})
       .then(response => {console.log("Received Data:", response.data);
         const userId = response.data.userId;
         if(userId !== -1)
         {
           //asych stores everything as strings
           storeData('userId', userId.toString())
+          storeData('notifsOn', "false")
           navigation.reset({
             index: 0,
             routes: [{ name: 'petpicker' }] as any, 
