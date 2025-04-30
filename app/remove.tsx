@@ -8,12 +8,10 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StatusBar } from "expo-status-bar";
 
-//Ant is very cool UI design library
-//Get day of current day of the week, for each habit extract the user days of their habits from their JSON, check against day of week, if match put habits in JSON object + send in response 
-//got to check if their habit name already exists back in create habit
+//mostly the same as the previous page but now deletion be cool
 
 
-export default function HabitScreen() {
+export default function RemoveScreen() {
   type Habit = {
     user_id: number;
     habit: string;
@@ -22,7 +20,6 @@ export default function HabitScreen() {
     completed: number;
   };
   const router = useRouter();
-  const [option, optionSet] = useState('Todo');
   const [habits, setHabits] = useState<Habit[]>([])
   const [load, setLoad] = useState(true);
   const [openModal, setOpenModal] = useState(false);
@@ -30,7 +27,7 @@ export default function HabitScreen() {
   
   const getHabits = async () => {
     const userid = await getData("userId") //Need to wait for the userId
-    axios.post('http://10.0.2.2:5000/getTodo', {id: userid})
+    axios.post('http://10.0.2.2:5000/selectAll', {id: userid})
     .then(response => {console.log("Received Data:", response.data);
       setHabits(response.data.habits || [])
     })
@@ -43,9 +40,10 @@ export default function HabitScreen() {
     }, [])
   );
 
-  const checkoff = async (habit: string) => {
+  //removing habit
+  const rhabit = async (habit: string) => {
     const userid = await getData("userId") //Need to wait for the userId
-    axios.post('http://10.0.2.2:5000/complete', {id: userid, habit: habit})
+    axios.post('http://10.0.2.2:5000/remove', {id: userid, habit: habit})
     .then(response => {console.log("Received Data:", response.data);
       if(response.data.valid == 1)
       {
@@ -63,7 +61,7 @@ export default function HabitScreen() {
 
   return (
     <>
-    <Stack.Screen options={{ title: 'Your Habits!' }} />
+    <Stack.Screen options={{ title: 'Habit Deletion!' }} />
     <StatusBar style="auto" />
       <Modal
         visible={openModal}
@@ -73,10 +71,8 @@ export default function HabitScreen() {
       >
         <View style={styles.content}>
           <View style={styles.card}>
-            <Text style={styles.title}></Text>
-            <Text style={styles.desc}>
-              Want To Mark Your Habit As Complete For Today?
-            </Text>
+            <Text style={styles.title}> </Text>
+            <Text style={styles.desc}> Want to delete this Habit Permanently? It will not show up in your To-do any day of the week. </Text>
             <TouchableOpacity
               style={[
                 styles.button,
@@ -86,9 +82,9 @@ export default function HabitScreen() {
                   backgroundColor: "#DD856F",
                 },
               ]}
-              onPress={() => {checkoff(marker) ,setOpenModal(false)}}
+              onPress={() => {rhabit(marker) ,setOpenModal(false)}}
             >
-              <Text style={[styles.text, { color: "white" }]}>Complete</Text>
+              <Text style={[styles.text, { color: "white" }]}>Delete</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -107,43 +103,29 @@ export default function HabitScreen() {
         </View>
       </Modal>
     <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
-      <View style ={{marginLeft: 40, marginRight: 20, flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
-      <View style ={{flexDirection:"row", marginRight: 5}}>
-      <AntDesign onPress={() => router.push("/home")} name="home" size={30} color="black"/>
+      <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
+      <View style ={{flexDirection:"row"}}>
+      <AntDesign onPress={() => router.push("/habits")} name="back" size={30} color="black"/>
       </View>
-      <View style ={{flexDirection:"row", marginRight: 5, marginTop: 5}}>
-      <AntDesign onPress={() => router.push("/create")}name="pluscircleo" size={26} color="black" />
-      <Text style = {{fontSize: 20}}> Add </Text>
-      </View>
-      <View style ={{flexDirection:"row", marginRight: 5, marginTop: 5}}>
-      <Ionicons onPress = {() => {router.push("/remove")}} name="remove-circle-outline" size={30} color="black" />
-      <Text style = {{fontSize: 20}}> Del </Text>
-      </View>
-      </View>
+       </View> 
+      <Text> All Existing Habits, Click one to Confirm Deletion! </Text>
       <View style = {{flexDirection: "row", alignItems: "center", gap:10, marginVertical: 8}}>
-        <Pressable onPress={() => (optionSet('Todo'))} style = {{backgroundColor: option == 'Todo' ? "#DD856F": "transparent", paddingHorizontal: 20, paddingVertical:12, borderRadius:20}}>    
-          <Text style = {{textAlign:"center", color: option == 'Todo' ? "white": "black", fontSize: 15}}> To-do </Text>
-        </Pressable>
-        <Pressable onPress={() => {optionSet('Completed'); getHabits()}}style = {{backgroundColor: option == 'Completed' ? "#DD856F": "transparent", paddingHorizontal: 20, paddingVertical:12, borderRadius:20}}> 
-          <Text style = {{textAlign:"center", color: option == 'Completed' ? "white": "black", fontSize: 15}}> Completed </Text>
-        </Pressable>
+
       </View>
       { load? (
-  <Text style={{ textAlign: "center", fontSize: 16 }}> </Text>
-): habits.length === 0 ? (
-          <Text style={{ textAlign: "center", fontSize: 16 }}> No Habits For Today! Go ahead and add some!</Text>
+        <Text style={{ textAlign: "center", fontSize: 16 }}> </Text>
+    ): habits.length === 0 ? (
+          <Text style={{ textAlign: "center", fontSize: 16 }}> No Habits Available!</Text>
         ) : (
-      habits
-      .filter(habit => option === 'Todo' ? habit.completed === 0 : habit.completed === 1)
+        habits
       .map((habit, index) => (
       <Pressable 
         key={index}  
         style={{height: 50, marginBottom: 15, backgroundColor: "#DD856F", borderRadius: 15, justifyContent: "center", alignItems: "center"}}
         onPress={() => {
-          if (option === "Todo") {
             setMarker(habit.habit);
             setOpenModal(true);
-          }}}>
+          }}>
         <Text style={{color: "white"}}> {habit.habit} </Text>
       </Pressable>
   )))}

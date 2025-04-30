@@ -203,5 +203,44 @@ def complete():
         return jsonify({"valid": 0})
     return jsonify({"valid": 1}) #send a confimation response
 
+@app.route("/selectAll", methods = ["POST"])
+def get():
+    dconn = connhelper()
+    data = request.get_json()
+    user = data["id"]
+    sql = "SELECT * FROM user_habits where id = %s"
+    vals = (user,)
+    mycursor = dconn.cursor()
+    mycursor.execute(sql, vals) 
+    myresult = mycursor.fetchall() #omg records
+    habits = []
+    for r in myresult:
+        check = json.loads(r[2])
+        habits.append({
+                    "id": r[0],
+                    "habit": r[1],
+                    "days": check,  # convert stringified list to actual list
+                    "reminder": r[3],
+                    "completed": r[4],
+                })       
+    return jsonify({"habits": habits})  
+
+@app.route("/remove", methods = ["POST"])
+def remove():
+    dconn = connhelper()
+    data = request.get_json()
+    id = data["id"]
+    name = data["habit"]
+    sql = "DELETE FROM user_habits WHERE id = %s AND habit = %s"
+    vals = (id, name)
+    mycursor = dconn.cursor()
+    try:
+        mycursor.execute(sql, vals) 
+        dconn.commit()
+    except:
+        return jsonify({"valid": 0})
+    return jsonify({"valid": 1})
+
+
 if __name__=='__main__':
     app.run(debug=True)
