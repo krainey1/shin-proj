@@ -1,10 +1,12 @@
 import React, {useState, useCallback} from "react";
-import {StyleSheet, View, Text, Button, ScrollView, Pressable} from 'react-native';
+import {StyleSheet, View, Text, Button, ScrollView, Pressable, Modal, TouchableOpacity} from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { Stack, useRouter } from 'expo-router';
 import {getData} from './index';
 import axios from 'axios';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { StatusBar } from "expo-status-bar";
+
 //Ant is very cool UI design library
 //Get day of current day of the week, for each habit extract the user days of their habits from their JSON, check against day of week, if match put habits in JSON object + send in response 
 //got to check if their habit name already exists back in create habit
@@ -22,6 +24,8 @@ export default function HabitScreen() {
   const [option, optionSet] = useState('Todo');
   const [habits, setHabits] = useState<Habit[]>([])
   const [load, setLoad] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
+  const [marker, setMarker] = useState("");
   
   const getHabits = async () => {
     const userid = await getData("userId") //Need to wait for the userId
@@ -37,10 +41,70 @@ export default function HabitScreen() {
       getHabits();
     }, [])
   );
+
+  const checkoff = async (habit) => {
+    const userid = await getData("userId") //Need to wait for the userId
+    axios.post('http://10.0.2.2:5000/complete', {id: userid, habit: habit})
+    .then(response => {console.log("Received Data:", response.data);
+      if(response.data.valid == 1)
+      {
+        getHabits()
+      }
+      else
+      {
+        alert("Something went wrong..Try again")
+        return 
+      }
+    })
+    .catch(error => {console.error("Lost the Plot", error)})
+    .finally(() => {setLoad(false)})
+  }
+
   return (
     <>
     <Stack.Screen options={{ title: 'Your Habits!' }} />
-    
+    <StatusBar style="auto" />
+      <Modal
+        visible={openModal}
+        statusBarTranslucent={true}
+        transparent={true}
+        animationType="slide"
+      >
+        <View style={styles.content}>
+          <View style={styles.card}>
+            <Text style={styles.title}></Text>
+            <Text style={styles.desc}>
+              Want to Mark Your Habit As Complete For Today?
+            </Text>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  width: "100%",
+                  marginTop: 24,
+                  backgroundColor: "rgba(0,0,0,0.1)",
+                },
+              ]}
+              onPress={() => {checkoff(marker) ,setOpenModal(false)}}
+            >
+              <Text style={[styles.text, { color: "black" }]}>Complete</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                {
+                  width: "100%",
+                  marginTop: 24,
+                  backgroundColor: "rgba(0,0,0,0.1)",
+                },
+              ]}
+              onPress={() => setOpenModal(false)}
+            >
+              <Text style={[styles.text, { color: "black" }]}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
       <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between"}}>
       <AntDesign name="hearto" size={26} color="black" />
@@ -66,7 +130,7 @@ export default function HabitScreen() {
       <Pressable 
         key={index}  
         style={{height: 50, marginBottom: 15, backgroundColor: "#DD856F", borderRadius: 15, justifyContent: "center", alignItems: "center"}}
-        onPress={() => console.log(`Habit: ${habit.habit}`)}> 
+        onPress={() => {setMarker(habit.habit), setOpenModal(true)}}> 
         <Text style={{color: "white"}}> {habit.habit} </Text>
       </Pressable>
   )))}
@@ -76,5 +140,46 @@ export default function HabitScreen() {
   );
 }
 
-
-const styles = StyleSheet.create({})
+//yoinking modeal/style sheet from a modal example repo https://github.com/liptonzuma/modal/blob/main/App.tsx
+const styles = StyleSheet.create({
+  desc: {
+    fontSize: 16,
+    lineHeight: 24,
+    opacity: 0.7,
+  },
+  title: {
+    fontWeight: "600",
+    fontSize: 18,
+    marginBottom: 12,
+  },
+  card: {
+    width: "90%",
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 8,
+  },
+  content: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  text: {
+    fontWeight: "600",
+    fontSize: 16,
+    color: "white",
+  },
+  button: {
+    width: "90%",
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    height: 56,
+    borderRadius: 8,
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

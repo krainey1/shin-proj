@@ -187,5 +187,21 @@ def todo():
     print(habits)
     return jsonify({"habits": habits})
 
+@app.route("/complete", methods = ["POST"])
+def complete():
+    dconn = connhelper()
+    data = request.get_json()
+    user = data["id"]
+    habit = data["habit"]
+    try:
+        sql = "UPDATE user_habits SET complete = %s WHERE id = %s AND habit = %s"
+        vals = (1, user, habit)
+        mycursor = dconn.cursor()
+        mycursor.execute(sql, vals) 
+        dconn.commit() #commit to save bruh
+    except:
+        return jsonify({"valid": 0})
+    return jsonify({"valid": 1}) #send a confimation response
+
 if __name__=='__main__':
     app.run(debug=True)
