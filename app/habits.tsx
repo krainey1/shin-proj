@@ -32,8 +32,8 @@ export default function HabitScreen() {
     .catch(error => {console.error("Lost the Plot", error)})
     .finally(() => {setLoad(false)})
   }
-  useFocusEffect(
-    useCallback(() => {
+  useFocusEffect( //render side effect on screen focus
+    useCallback(() => { //ensures render doesnt happen unless required
       getHabits();
     }, [])
   );
@@ -51,16 +51,18 @@ export default function HabitScreen() {
         <Pressable onPress={() => (optionSet('Todo'))} style = {{backgroundColor: option == 'Todo' ? "#DD856F": "transparent", paddingHorizontal: 10, paddingVertical:8, borderRadius:25}}>    
           <Text style = {{textAlign:"center", color: option == 'Todo' ? "white": "black", fontSize: 15}}> Todo </Text>
         </Pressable>
-        <Pressable onPress={() => optionSet('Completed')}style = {{backgroundColor: option == 'Completed' ? "#DD856F": "transparent", paddingHorizontal: 10, paddingVertical:8, borderRadius:25}}> 
+        <Pressable onPress={() => {optionSet('Completed'); getHabits()}}style = {{backgroundColor: option == 'Completed' ? "#DD856F": "transparent", paddingHorizontal: 10, paddingVertical:8, borderRadius:25}}> 
           <Text style = {{textAlign:"center", color: option == 'Completed' ? "white": "black", fontSize: 15}}> Completed </Text>
         </Pressable>
       </View>
       { load? (
   <Text style={{ textAlign: "center", fontSize: 16 }}> </Text>
 ): habits.length === 0 ? (
-          <Text style={{ textAlign: "center", fontSize: 16 }}> No Habits To Do For Today! Go ahead and add some! </Text>
+          <Text style={{ textAlign: "center", fontSize: 16 }}> No Habits For Today! Go ahead and add some!</Text>
         ) : (
-      habits.map((habit, index) => (
+      habits
+      .filter(habit => option === 'Todo' ? habit.completed === 0 : habit.completed === 1)
+      .map((habit, index) => (
       <Pressable 
         key={index}  
         style={{height: 50, marginBottom: 15, backgroundColor: "#DD856F", borderRadius: 15, justifyContent: "center", alignItems: "center"}}

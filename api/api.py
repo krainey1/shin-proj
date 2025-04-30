@@ -126,6 +126,8 @@ def add():
     "Sat": "Saturday",
     "Sun": "Sunday"
     }   
+
+    #need to prevent duplicate habit names
     id = data["userid"]
     habit = data["hname"]
     reminder = data["reminder"]
@@ -133,16 +135,23 @@ def add():
     print(day_data)
     day_data = json.dumps(day_data)
     dconn = connhelper()
-    sql = "INSERT INTO user_habits (id, habit, days, reminder) VALUES (%s, %s, %s, %s)"
-    vals = (id, habit, day_data, reminder)
+    sql = "SELECT * FROM user_habits WHERE id = %s AND habit = %s"
+    vals = (id, habit)
     mycursor = dconn.cursor()
-    try:
-        mycursor.execute(sql, vals)
-        dconn.commit()
-        return jsonify({"valid": 1}) #send a confimation response
-    except Exception as e:
-        print(f"DB Error: {e}")
-        return jsonify({"valid": 0})
+    mycursor.execute(sql, vals)
+    result = mycursor.fetchall()
+    if(result == []):
+        sql = "INSERT INTO user_habits (id, habit, days, reminder, complete) VALUES (%s, %s, %s, %s, %s)"
+        vals = (id, habit, day_data, reminder, 0)
+        mycursor = dconn.cursor()
+        try:
+            mycursor.execute(sql, vals)
+            dconn.commit()
+            return jsonify({"valid": 1}) #send a confimation response
+        except Exception as e:
+            print(f"DB Error: {e}")
+            return jsonify({"valid": 0})
+    return jsonify({"valid": 0})
 
 #need to check day of the week + if task has been completed 
 @app.route("/getTodo", methods = ["POST"])
