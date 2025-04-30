@@ -74,7 +74,7 @@ export default function HabitScreen() {
           <View style={styles.card}>
             <Text style={styles.title}></Text>
             <Text style={styles.desc}>
-              Want to Mark Your Habit As Complete For Today?
+              Want To Mark Your Habit As Complete For Today?
             </Text>
             <TouchableOpacity
               style={[
@@ -82,12 +82,12 @@ export default function HabitScreen() {
                 {
                   width: "100%",
                   marginTop: 24,
-                  backgroundColor: "rgba(0,0,0,0.1)",
+                  backgroundColor: "#DD856F",
                 },
               ]}
               onPress={() => {checkoff(marker) ,setOpenModal(false)}}
             >
-              <Text style={[styles.text, { color: "black" }]}>Complete</Text>
+              <Text style={[styles.text, { color: "white" }]}>Complete</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[
@@ -95,12 +95,12 @@ export default function HabitScreen() {
                 {
                   width: "100%",
                   marginTop: 24,
-                  backgroundColor: "rgba(0,0,0,0.1)",
+                  backgroundColor:"#DD856F",
                 },
               ]}
               onPress={() => setOpenModal(false)}
             >
-              <Text style={[styles.text, { color: "black" }]}>Close</Text>
+              <Text style={[styles.text, { color: "white" }]}>Close</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -113,7 +113,7 @@ export default function HabitScreen() {
       <Text style = {{marginTop:5, fontSize: 23, fontWeight:"500"}}> Habits</Text>
       <View style = {{flexDirection: "row", alignItems: "center", gap:10, marginVertical: 8}}>
         <Pressable onPress={() => (optionSet('Todo'))} style = {{backgroundColor: option == 'Todo' ? "#DD856F": "transparent", paddingHorizontal: 10, paddingVertical:8, borderRadius:25}}>    
-          <Text style = {{textAlign:"center", color: option == 'Todo' ? "white": "black", fontSize: 15}}> Todo </Text>
+          <Text style = {{textAlign:"center", color: option == 'Todo' ? "white": "black", fontSize: 15}}> To-do </Text>
         </Pressable>
         <Pressable onPress={() => {optionSet('Completed'); getHabits()}}style = {{backgroundColor: option == 'Completed' ? "#DD856F": "transparent", paddingHorizontal: 10, paddingVertical:8, borderRadius:25}}> 
           <Text style = {{textAlign:"center", color: option == 'Completed' ? "white": "black", fontSize: 15}}> Completed </Text>
@@ -130,7 +130,11 @@ export default function HabitScreen() {
       <Pressable 
         key={index}  
         style={{height: 50, marginBottom: 15, backgroundColor: "#DD856F", borderRadius: 15, justifyContent: "center", alignItems: "center"}}
-        onPress={() => {setMarker(habit.habit), setOpenModal(true)}}> 
+        onPress={() => {
+          if (option === "Todo") {
+            setMarker(habit.habit);
+            setOpenModal(true);
+          }}}>
         <Text style={{color: "white"}}> {habit.habit} </Text>
       </Pressable>
   )))}
@@ -145,7 +149,7 @@ const styles = StyleSheet.create({
   desc: {
     fontSize: 16,
     lineHeight: 24,
-    opacity: 0.7,
+    color: "black"
   },
   title: {
     fontWeight: "600",
