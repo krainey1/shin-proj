@@ -6,12 +6,15 @@ import json
 import bcrypt
 import datetime
 import mysql.connector
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
 
-#Keep it very cool n (mosty-ish) secure -> POST requests, Prepared Statements, Hashing Passwords (ignore the safety of asynch storage on the front)
+#Keep it very cool n (mostly-ish) secure -> POST requests, Prepared Statements, Hashing Passwords (ignore the safety of asynch storage on the front)
 #Todo go down and close all those connections after use
 
 app = Flask(__name__)
-CORS(app)
+CORS(app) #accept requests from different origins
+
 
 def connhelper(): #helper function to establish connection
     load_dotenv() #grabbing values from .env file
@@ -22,6 +25,21 @@ def connhelper(): #helper function to establish connection
         database=os.getenv("DB_NAME", "project-schema") #might hide this in the .env later
     )
     return dbconn
+
+def mymidnightupdate():
+    dconn = connhelper()
+    sql = "UPDATE user_habits SET complete = 0  WHERE complete = 1"
+    mycursor = dconn.cursor()
+    try:
+        mycursor.execute(sql)
+        dconn.commit()
+    except:
+        return "L BOZO"
+
+#wanna schedule a job to run at midnight to reset complete habits ~ for the scope of this lets be blissfully ignorant about timezones
+scheduler = BackgroundScheduler()
+scheduler.add_job(mymidnightupdate, CronTrigger(hour=0, minute=0)) #ok this is pretty freakin cool
+scheduler.start() #actually start the dang scheduler
 
 @app.route("/")
 def test_point():
