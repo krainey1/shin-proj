@@ -58,11 +58,16 @@ export default function createScreen() {
   return (
     <>
     <View style={{padding: 15}}>
-        <Text style = {{fontSize: 20, marginTop: 10, fontWeight: "500"}}> Create Habit </Text>
+        <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
+          <View style ={{flexDirection:"row"}}>
+          <AntDesign onPress={() => router.replace("/habits")} name="back" size={30} color="black"/>
+          </View>
+        </View> 
+        <Text style = {{fontSize: 20, marginTop: 10, fontWeight: "500"}}>Create A Habit! </Text>
         <TextInput  value = {hname}
-        onChangeText={(newText) => sethname(newText)} style = {{ width: '95%', marginTop: 15, marginBottom: 10, padding: 15, borderRadius: 10, borderColor: "black", borderWidth: 2, backgroundColor: "white"}} placeholder="Habit Name"/>
-        <Text style= {{fontSize: 20, fontWeight:"500"}}> Days To Complete Per Week</Text>
-        <View style={{marginLeft: 8, marginRight: 10,flexDirection: "row", alignItems:"center", gap:12, marginTop:10}}>
+        onChangeText={(newText) => sethname(newText)} style = {{ width: '100%', marginTop: 15, marginBottom: 10, padding: 15, borderRadius: 10, borderColor: "black", borderWidth: 2, backgroundColor: "white"}} placeholder="Habit Name"/>
+        <Text style= {{fontSize: 20, fontWeight:"500"}}>Days To Complete Per Week</Text>
+        <View style={{ marginLeft: 12, marginRight: 10,flexDirection: "row", alignItems:"center", gap:12, marginTop:10}}>
             {days?.map((item, index) => {
                 const isSelected = dayss.includes(item);
                 return (
@@ -73,12 +78,12 @@ export default function createScreen() {
             })}
         </View>
         <View style = {{marginTop: 20, flexDirection: "row", alignItems: "center", gap: 20}}>
-            <Text style={{fontSize: 20, fontWeight: "500"}}> Want a Reminder? </Text>
+            <Text style={{fontSize: 20, fontWeight: "500"}}>Want A Reminder? </Text>
             <Pressable onPress = {() => handleReminderPress()} style={{width: 40, height: 40, marginBottom: 10, borderRadius: 10, backgroundColor: reminder ? "#FFCC00" : "#DD856F", justifyContent: "center", alignItems: "center"}}> 
                 <Text style = {{color: "white"}}>Yes</Text>  
             </Pressable>
         </View>
-        <Pressable onPress = {() => addHabit(hname, dayss, reminder)} style = {{width: '95%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
+        <Pressable onPress = {() => addHabit(hname, dayss, reminder)} style = {{width: '100%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
             <Text style = {{textAlign: "center", color: "white", fontWeight: "bold"}}> CREATE </Text>
         </Pressable>
     </View>

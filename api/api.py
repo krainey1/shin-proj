@@ -7,7 +7,7 @@ import bcrypt
 import datetime
 import mysql.connector
 
-#Keep it very cool n secure -> POST requests, Prepared Statements, Hashing (ignore the safety of asynch storage on the front)
+#Keep it very cool n (mosty-ish) secure -> POST requests, Prepared Statements, Hashing Passwords (ignore the safety of asynch storage on the front)
 #Todo go down and close all those connections after use
 
 app = Flask(__name__)

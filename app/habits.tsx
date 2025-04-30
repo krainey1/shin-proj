@@ -107,9 +107,9 @@ export default function HabitScreen() {
         </View>
       </Modal>
     <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
-      <View style ={{marginLeft: 40, marginRight: 20, flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
+      <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 15}}>
       <View style ={{flexDirection:"row", marginRight: 5}}>
-      <AntDesign onPress={() => router.push("/home")} name="home" size={30} color="black"/>
+      <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
       </View>
       <View style ={{flexDirection:"row", marginRight: 5, marginTop: 5}}>
       <AntDesign onPress={() => router.push("/create")}name="pluscircleo" size={26} color="black" />

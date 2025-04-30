@@ -72,7 +72,7 @@ export default function RemoveScreen() {
         <View style={styles.content}>
           <View style={styles.card}>
             <Text style={styles.title}> </Text>
-            <Text style={styles.desc}> Want to delete this Habit Permanently? It will not show up in your To-do any day of the week. </Text>
+            <Text style={styles.desc}>Want to delete this Habit Permanently? It will not show up in your To-do any day of the week. </Text>
             <TouchableOpacity
               style={[
                 styles.button,
@@ -108,7 +108,8 @@ export default function RemoveScreen() {
       <AntDesign onPress={() => router.push("/habits")} name="back" size={30} color="black"/>
       </View>
        </View> 
-      <Text> All Existing Habits, Click one to Confirm Deletion! </Text>
+       <Text style = {{fontSize: 20, marginTop: 10, fontWeight: "500", marginBottom: 8}}>Delete A Habit! </Text>
+      <Text style = {{fontWeight: "400"}}>All Existing Habits, Click one to Confirm Deletion! </Text>
       <View style = {{flexDirection: "row", alignItems: "center", gap:10, marginVertical: 8}}>
 
       </View>
