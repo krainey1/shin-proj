@@ -1,7 +1,8 @@
 import { Stack, useRouter } from 'expo-router';
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import * as Notifications from 'expo-notifications';
 import {getData, storeData} from "./index";
+import axios from "axios";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 Notifications.setNotificationHandler({
@@ -14,6 +15,14 @@ Notifications.setNotificationHandler({
 
 export default function HomeScreen() {
   const router = useRouter();
+
+  type Habit = {
+    user_id: number;
+    habit: string;
+    days: string[]; 
+    reminder: number;
+    completed: number;
+  };
 
   const showHappyPopup = () => {
     const messages = [
@@ -32,21 +41,40 @@ export default function HomeScreen() {
     Alert.alert("Happiness!", randomMessage);
   };
 
+  const [habits, setHabits] = useState<Habit[]>();
+
+  const getHabits = async () => {
+    const userid = await getData("userId") //Need to wait for the userId
+    axios.post('https://appapi-production.up.railway.app/getTodo', {id: userid})
+    .then(response => {console.log("Received Data:", response.data);
+    const filteredHabits = response.data.habits?.filter((habit: Habit) => habit.reminder === 1) || [];
+    setHabits(filteredHabits)
+    return filteredHabits;
+    })
+    .catch(error => {console.error("Lost the Plot", error)})
+    return []
+  }
+
   const scheduleNotificationOnce = async () => {
-    console.log("wtf2");
+    console.log("wtf2"); //my attempts at error checking w/pizzazz
     const alreadyScheduled = await getData("notifsOn");
     console.log(alreadyScheduled);
-    if (!alreadyScheduled) {
+    if (alreadyScheduled === "false") {
+      const rehabits = await getHabits();
+      const habitNames = rehabits.map((habit: Habit) => habit.habit).join(", ");
+      const message = habitNames.length > 0 
+      ? 'Here\'s your reminder for": ${habitNames} For Today! You can do it!'
+      : "No habits to remind you about...but your pet misses you <3";
       await Notifications.scheduleNotificationAsync({
         content: {
-          title: "Time to check in!",
-          body: "How are you feeling?",
+          title: "Reminder:",
+          body: message,
         },
         trigger: {
-          type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-          seconds: 60, // every 5 minutes for testing
-          repeats: true,
-        }
+          type: 'timeInterval',
+          seconds: 300, // every 5 minutes for testing
+          repeats: true
+        } as any
       });
       await storeData('notifsOn', 'true');
       console.log("we getting here??")
@@ -65,7 +93,6 @@ export default function HomeScreen() {
           return;
         }
       }
-      // Now call your scheduling function
       scheduleNotificationOnce();
     }
     prepareNotifications();
