@@ -1,9 +1,14 @@
-import { Stack, useRouter } from 'expo-router';
-import React, {useEffect, useState} from "react";
-import * as Notifications from 'expo-notifications';
-import {getData, storeData} from "./index";
 import axios from "axios";
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import * as Notifications from 'expo-notifications';
+import { Stack, useRouter } from 'expo-router';
+import React, { useEffect, useState } from "react";
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import catImg from '../assets/images/itty_bitty_kitty.jpg';
+import penguinImg from '../assets/images/npeng.png';
+import turtleImg from '../assets/images/nturtle.png';
+import pandaImg from '../assets/images/panda-colorcorrected.png';
+import rockImg from '../assets/images/rock.png';
+import { getData, storeData } from "./index";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -19,7 +24,7 @@ export default function HomeScreen() {
   type Habit = {
     user_id: number;
     habit: string;
-    days: string[]; 
+    days: string[];
     reminder: number;
     completed: number;
   };
@@ -42,29 +47,33 @@ export default function HomeScreen() {
   };
 
   const [habits, setHabits] = useState<Habit[]>();
+  const [petId, setPetId] = useState<string | null>(null);
 
   const getHabits = async () => {
-    const userid = await getData("userId") //Need to wait for the userId
-    axios.post('https://appapi-production.up.railway.app/getTodo', {id: userid})
-    .then(response => {console.log("Received Data:", response.data);
-    const filteredHabits = response.data.habits?.filter((habit: Habit) => habit.reminder === 1) || [];
-    setHabits(filteredHabits)
-    return filteredHabits;
-    })
-    .catch(error => {console.error("Lost the Plot", error)})
-    return []
-  }
+    const userid = await getData("userId");
+    return axios.post('https://appapi-production.up.railway.app/getTodo', { id: userid })
+      .then(response => {
+        console.log("Received Data:", response.data);
+        const filteredHabits = response.data.habits?.filter((habit: Habit) => habit.reminder === 1) || [];
+        setHabits(filteredHabits);
+        return filteredHabits;
+      })
+      .catch(error => {
+        console.error("Lost the Plot", error);
+        return [];
+      });
+  };
 
   const scheduleNotificationOnce = async () => {
-    console.log("wtf2"); //my attempts at error checking w/pizzazz
+    console.log("wtf2");
     const alreadyScheduled = await getData("notifsOn");
     console.log(alreadyScheduled);
     if (alreadyScheduled === "false") {
       const rehabits = await getHabits();
       const habitNames = rehabits.map((habit: Habit) => habit.habit).join(", ");
-      const message = habitNames.length > 0 
-      ? 'Here\'s your reminder for": ${habitNames} For Today! You can do it!'
-      : "No habits to remind you about...but your pet misses you <3";
+      const message = habitNames.length > 0
+        ? `Here's your reminder for: ${habitNames} For Today! You can do it!`
+        : "No habits to remind you about...but your pet misses you <3";
       await Notifications.scheduleNotificationAsync({
         content: {
           title: "Reminder:",
@@ -72,12 +81,29 @@ export default function HomeScreen() {
         },
         trigger: {
           type: 'timeInterval',
-          seconds: 300, // every 5 minutes for testing
+          seconds: 300,
           repeats: true
         } as any
       });
       await storeData('notifsOn', 'true');
-      console.log("we getting here??")
+      console.log("we getting here??");
+    }
+  };
+
+  const getPetImage = () => {
+    switch (petId) {
+      case "1":
+        return catImg;
+      case "2":
+        return pandaImg;
+      case "3":
+        return penguinImg;
+      case "4":
+        return rockImg;
+      case "5":
+        return turtleImg;
+      default:
+        return null;
     }
   };
 
@@ -88,29 +114,42 @@ export default function HomeScreen() {
       if (status !== 'granted') {
         const { status: newStatus } = await Notifications.requestPermissionsAsync();
         if (newStatus !== 'granted') {
-          console.log("in here?")
+          console.log("in here?");
           alert('Permission for notifications was not granted.');
           return;
         }
       }
       scheduleNotificationOnce();
     }
+
+    async function loadPetId() {
+      const storedPetId = await getData("petId");
+      setPetId(storedPetId);
+    }
+
     prepareNotifications();
+    loadPetId();
   }, []);
 
   return (
     <>
       <Stack.Screen options={{ title: 'Home' }} />
-      
+
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome!</Text>
 
-        {/* Image spacer */}
+        {/* Pet Display */}
         <View style={styles.imagePlaceholder}>
-          {/* Pet gif? */}
+          {getPetImage() && (
+            <Image
+              source={getPetImage()}
+              style={{ width: 200, height: 200, alignSelf: 'center' }}
+              resizeMode="contain"
+            />
+          )}
         </View>
 
-        {}
+        {/* Button Grid */}
         <View style={styles.buttonGrid}>
           <TouchableOpacity style={styles.customButton} onPress={showHappyPopup}>
             <Text style={styles.buttonText}>Happy</Text>
@@ -150,8 +189,10 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     marginBottom: 20,
-    backgroundColor: '#cccccc55', 
+    backgroundColor: '#cccccc55',
     borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonGrid: {
     flexDirection: 'row',
