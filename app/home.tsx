@@ -1,13 +1,16 @@
 import axios from "axios";
+import { Image } from 'expo-image';
 import * as Notifications from 'expo-notifications';
 import { Stack, useRouter } from 'expo-router';
 import React, { useEffect, useState } from "react";
-import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import catImg from '../assets/images/itty_bitty_kitty.jpg';
-import penguinImg from '../assets/images/npeng.png';
-import turtleImg from '../assets/images/nturtle.png';
-import pandaImg from '../assets/images/panda-colorcorrected.png';
-import rockImg from '../assets/images/rock.png';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+import catGif from '../assets/animations/happycat.gif';
+import pandaGif from '../assets/animations/happypanda.gif';
+import penguinGif from '../assets/animations/happypenguin.gif';
+import rockGif from '../assets/animations/happyrock.gif';
+import turtleGif from '../assets/animations/happyturtle.gif';
+
 import { getData, storeData } from "./index";
 
 Notifications.setNotificationHandler({
@@ -81,7 +84,7 @@ export default function HomeScreen() {
         },
         trigger: {
           type: 'timeInterval',
-          seconds: 300,
+          seconds: 300, // 5 minutes
           repeats: true
         } as any
       });
@@ -90,31 +93,29 @@ export default function HomeScreen() {
     }
   };
 
-  const getPetImage = () => {
+  const getPetGif = () => {
     switch (petId) {
       case "1":
-        return catImg;
+        return catGif;
       case "2":
-        return pandaImg;
+        return pandaGif;
       case "3":
-        return penguinImg;
+        return penguinGif;
       case "4":
-        return rockImg;
+        return rockGif;
       case "5":
-        return turtleImg;
+        return turtleGif;
       default:
         return null;
     }
   };
 
   useEffect(() => {
-    console.log("wtf");
     async function prepareNotifications() {
       const { status } = await Notifications.getPermissionsAsync();
       if (status !== 'granted') {
         const { status: newStatus } = await Notifications.requestPermissionsAsync();
         if (newStatus !== 'granted') {
-          console.log("in here?");
           alert('Permission for notifications was not granted.');
           return;
         }
@@ -138,18 +139,16 @@ export default function HomeScreen() {
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome!</Text>
 
-        {/* Pet Display */}
         <View style={styles.imagePlaceholder}>
-          {getPetImage() && (
+          {getPetGif() && (
             <Image
-            source={require('../assets/animations/happycat.gif')}
-            style={styles.petImage}
-            resizeMode="contain"
-          />
+              source={getPetGif()}
+              style={styles.petImage}
+              contentFit="contain"
+            />
           )}
         </View>
 
-        {/* Button Grid */}
         <View style={styles.buttonGrid}>
           <TouchableOpacity style={styles.customButton} onPress={showHappyPopup}>
             <Text style={styles.buttonText}>Happy</Text>
@@ -195,10 +194,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   petImage: {
-    flex: 1,
     width: '100%',
     height: '100%',
-    alignSelf: 'center',
   },
   buttonGrid: {
     flexDirection: 'row',
