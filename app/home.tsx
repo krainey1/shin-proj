@@ -142,10 +142,10 @@ export default function HomeScreen() {
         <View style={styles.imagePlaceholder}>
           {getPetImage() && (
             <Image
-              source={getPetImage()}
-              style={{ width: 200, height: 200, alignSelf: 'center' }}
-              resizeMode="contain"
-            />
+            source={require('../assets/animations/happycat.gif')}
+            style={styles.petImage}
+            resizeMode="contain"
+          />
           )}
         </View>
 
@@ -193,6 +193,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  petImage: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    alignSelf: 'center',
   },
   buttonGrid: {
     flexDirection: 'row',
