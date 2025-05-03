@@ -6,10 +6,10 @@ import React, { useEffect, useState } from "react";
 import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import catGif from '../assets/animations/happycat.gif';
-import pandaGif from '../assets/animations/happypanda.gif';
+import pandaGif from '../assets/animations/happypanda2.gif';
 import penguinGif from '../assets/animations/happypenguin.gif';
-import rockGif from '../assets/animations/happyrock.gif';
-import turtleGif from '../assets/animations/happyturtle.gif';
+import rockGif from '../assets/animations/happyrock2.gif';
+import turtleGif from '../assets/animations/happyturtle2.gif';
 
 import { getData, storeData } from "./index";
 
