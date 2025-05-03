@@ -60,7 +60,7 @@ export default function PetInteractScreen() {
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.customButton}>
-            <Text style={styles.buttonText}>Back</Text>
+            <Text style={styles.buttonText}>Good Cry</Text>
           </TouchableOpacity>
         </View>
       </View>
