@@ -78,7 +78,7 @@ export default function PetInteractScreen() {
       setTimeout(() => {
         setCurrentImage(getStaticImage(petId));
         setIsTempImage(false);
-      }, 5000); // we can change the seconds here 
+      }, 5000); // we can change the seconds here (in milliseconds)
     }
   };
 
