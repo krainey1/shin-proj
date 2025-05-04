@@ -1,3 +1,4 @@
+import { fontFamily } from '@/dimensions/fontFamily';
 import axios from 'axios'; //because requests are a pain w/fetch
 import { Image } from 'expo-image';
 import { Stack, useRouter } from 'expo-router';
@@ -94,7 +95,8 @@ const styles = StyleSheet.create({
     fontSize: 60,
     fontWeight: 'bold',
     marginTop: 40,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: fontFamily.regular,
   },
   customButton:{
     width: 200,
@@ -109,7 +111,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: fontFamily.bold,
   },
   catImage: {
     width: 255,
