@@ -23,7 +23,7 @@ export default function LoginScreen() {
   const [username, setUsername] = useState(''); //<- so we can track/save the state of the username!
   const [password, setPassword] = useState('');
   
-  const loginHandler = (username, password) => {
+  const loginHandler = () => {
     if(username.trim() === '' || password.trim() === '')
     {
       alert('Please Enter Both Username and Password');
@@ -72,7 +72,7 @@ export default function LoginScreen() {
         />
       {}
       <View style={styles.container_2}>
-          <TouchableOpacity style = {styles.customButton} onPress={() => loginHandler(username, password)}>
+          <TouchableOpacity style = {styles.customButton} onPress={() => loginHandler()}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
           <TouchableOpacity style = {styles.customButton} onPress={() => router.push('/register')} >
@@ -94,16 +94,9 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 60,
-<<<<<<< HEAD
-    // fontWeight: 'bold',
-    marginTop: 40,
-    textAlign: 'center',
-    fontFamily: fontFamily.bold,
-=======
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'center'
->>>>>>> e6b4760d044ee43ee8e9983b536df99ac7000b59
   },
   customButton:{
     width: 140,
@@ -117,12 +110,6 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
-<<<<<<< HEAD
-    fontSize: 20,
-    // fontWeight: 'bold',
-    textAlign: 'center',
-    fontFamily: fontFamily.bold,
-=======
     fontSize: 12,
     fontWeight: 'bold',
     textAlign: 'center'
@@ -132,7 +119,6 @@ const styles = StyleSheet.create({
     height: 260,
     marginTop: 10,
     marginBottom: 45
->>>>>>> e6b4760d044ee43ee8e9983b536df99ac7000b59
   },
   catImage: {
     width: 245,
@@ -159,7 +145,7 @@ const styles = StyleSheet.create({
     color: '#DD856F'
   },
   container_2: {
-    flex: 1,
+    
     flexDirection:'row',
     gap: 10
     },
