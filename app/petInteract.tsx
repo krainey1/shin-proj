@@ -45,7 +45,7 @@ export default function PetInteractScreen() {
       2: {
         pet: require('../assets/animations/petpanda.gif'),
         feed: require('../assets/animations/fedpanda.gif'),
-        cry: require('../assets/animations/sadpanda.gif'),
+        cry: require('../assets/animations/sadpanda2.gif'),
       },
       3: {
         pet: require('../assets/animations/petpen.gif'),
@@ -55,12 +55,12 @@ export default function PetInteractScreen() {
       4: {
         pet: require('../assets/animations/petrock.gif'),
         feed: require('../assets/animations/fedrock.gif'),
-        cry: require('../assets/animations/sadrock.gif'),
+        cry: require('../assets/animations/sadrock2.gif'),
       },
       5: {
         pet: require('../assets/animations/petturtle.gif'),
         feed: require('../assets/animations/fedturtle.gif'),
-        cry: require('../assets/animations/sadturtle.gif'),
+        cry: require('../assets/animations/sadturtle2.gif'),
       },
     };
 
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 20,
     marginBottom: 20,
-    backgroundColor: '#cccccc55', 
+    backgroundColor: '#E7E7E7', 
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',

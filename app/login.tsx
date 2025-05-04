@@ -55,29 +55,31 @@ export default function LoginScreen() {
     <>
     <Stack.Screen options={{ title: 'Login' }} />
     <View style={styles.container}>
-      <Text style={styles.loginText}>Calm Stuff Everyday</Text>
       <Image source={require('../assets/animations/happycat.gif')} style={styles.catImage}></Image>
       <TextInput
         style={styles.input} 
         placeholder="Username"
+        placeholderTextColor='#DD856F'
         value = {username}
         onChangeText={(newText) => setUsername(newText)}
         />
         <TextInput
         style={styles.input} 
         placeholder="Password"
+        placeholderTextColor='#DD856F'
         value = {password}
         onChangeText={(newText) => setPassword(newText)}
         />
       {}
-      <View>
-        <TouchableOpacity style = {styles.customButton} onPress={() => loginHandler(username, password)}>
-          <Text style={styles.buttonText}>LOGIN</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {styles.customButton} onPress={() => router.push('/register')} >
-        <Text style={styles.buttonText}>CREATE ACCOUNT</Text>
-        </TouchableOpacity>
+      <View style={styles.container_2}>
+          <TouchableOpacity style = {styles.customButton} onPress={() => loginHandler(username, password)}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style = {styles.customButton} onPress={() => router.push('/register')} >
+          <Text style={styles.buttonText}>Create Account</Text>
+            </TouchableOpacity>
       </View>
+      <Image source={require('../assets/images/turtlelogo.png')} style={styles.turtleImage}></Image>
     </View>
     </>
   );
@@ -93,29 +95,36 @@ const styles = StyleSheet.create({
   loginText: {
     fontSize: 60,
     fontWeight: 'bold',
-    marginTop: 40,
+    marginTop: 30,
     textAlign: 'center'
   },
   customButton:{
-    width: 200,
-    height: 60,
+    width: 140,
+    height: 40,
     backgroundColor: '#DD856F',
     borderRadius: 23,
     justifyContent: 'center',
+    alignSelf: 'flex-start',
     alignItems: 'center',
-    margin: 5,
+    marginTop: 12
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 12,
     fontWeight: 'bold',
     textAlign: 'center'
   },
+  turtleImage: {
+    width: 350,
+    height: 260,
+    marginTop: 10,
+    marginBottom: 45
+  },
   catImage: {
-    width: 255,
-    height: 255,
-    marginLeft: 15
-
+    width: 245,
+    height: 245,
+    marginLeft: 10,
+    marginTop: 65
   },
   textContainer:{
     flex: 1,
@@ -126,12 +135,18 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     height: 50,
-    borderColor: 'gray',
+    borderColor: '#DD856F',
     borderWidth: 1,
     borderRadius: 20,
-    paddingHorizontal: 10,
-    backgroundColor: '#F5FCFF',
+    paddingHorizontal: 15,
+    backgroundColor: '#E7E7E7',
     margin: 5,
-    fontSize: 18
+    fontSize: 14,
+    color: '#DD856F'
   },
+  container_2: {
+    flex: 1,
+    flexDirection:'row',
+    gap: 10
+    },
 });
