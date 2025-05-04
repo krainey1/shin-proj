@@ -94,9 +94,16 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 60,
+<<<<<<< HEAD
+    // fontWeight: 'bold',
+    marginTop: 40,
+    textAlign: 'center',
+    fontFamily: fontFamily.bold,
+=======
     fontWeight: 'bold',
     marginTop: 30,
     textAlign: 'center'
+>>>>>>> e6b4760d044ee43ee8e9983b536df99ac7000b59
   },
   customButton:{
     width: 140,
@@ -110,6 +117,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white',
+<<<<<<< HEAD
+    fontSize: 20,
+    // fontWeight: 'bold',
+    textAlign: 'center',
+    fontFamily: fontFamily.bold,
+=======
     fontSize: 12,
     fontWeight: 'bold',
     textAlign: 'center'
@@ -119,6 +132,7 @@ const styles = StyleSheet.create({
     height: 260,
     marginTop: 10,
     marginBottom: 45
+>>>>>>> e6b4760d044ee43ee8e9983b536df99ac7000b59
   },
   catImage: {
     width: 245,
