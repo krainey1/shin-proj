@@ -93,10 +93,10 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 60,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     marginTop: 40,
     textAlign: 'center',
-    fontFamily: fontFamily.regular,
+    fontFamily: fontFamily.bold,
   },
   customButton:{
     width: 200,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 20,
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     textAlign: 'center',
     fontFamily: fontFamily.bold,
   },
