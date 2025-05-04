@@ -1,10 +1,10 @@
-import React, {useState} from "react";
-import {StyleSheet, View, Text, TextInput, Button, ScrollView, Pressable } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
-import axios from 'axios';
-import {getData} from './index';
 import AntDesign from '@expo/vector-icons/AntDesign';
- //Ant is very cool UI design library
+import axios from 'axios';
+import { useRouter } from 'expo-router';
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { getData } from './index';
+//Ant is very cool UI design library
 
 export default function createScreen() {
   const router = useRouter();
@@ -63,7 +63,7 @@ export default function createScreen() {
           <AntDesign onPress={() => router.replace("/habits")} name="back" size={30} color="black"/>
           </View>
         </View> 
-        <Text style = {{fontSize: 20, marginTop: 10, fontWeight: "500"}}>Create A Habit! </Text>
+        <Text style={{ fontSize: 20, marginTop: 10, fontWeight: "normal" }}> Create A Habit! </Text>
         <TextInput  value = {hname}
         onChangeText={(newText) => sethname(newText)} style = {{ width: '100%', marginTop: 15, marginBottom: 10, padding: 15, borderRadius: 10, borderColor: "black", borderWidth: 2, backgroundColor: "white"}} placeholder="Habit Name"/>
         <Text style= {{fontSize: 20, fontWeight:"500"}}>Days To Complete Per Week</Text>
