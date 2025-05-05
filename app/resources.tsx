@@ -1,9 +1,10 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React from "react";
 import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function ResourceScreen() {
+  const router = useRouter();
   return (
     <>
       <Stack.Screen options={{ title: 'Mental Health Resources' }} />
