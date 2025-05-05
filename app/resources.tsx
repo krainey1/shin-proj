@@ -1,5 +1,5 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import React from "react";
 import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
 
