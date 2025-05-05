@@ -87,9 +87,9 @@ export default function PetInteractScreen() {
     <>
       <Stack.Screen options={{ title: 'Pet Interact' }} />
       <View style={styles.container}>
-      <View style ={{flexDirection:"row", marginRight: 5}}>
-      <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
-      </View>
+        <View style ={{flexDirection:"row", marginRight: 5, alignSelf: "flex-start"}}>
+        <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
+        </View>
         <Text style={styles.welcomeText}>Interact With Your Pet!</Text>
 
         <View style={styles.imagePlaceholder}>
