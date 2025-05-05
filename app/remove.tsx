@@ -1,12 +1,11 @@
-import React, {useState, useCallback} from "react";
-import {StyleSheet, View, Text, Button, ScrollView, Pressable, Modal, TouchableOpacity} from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import { Stack, useRouter } from 'expo-router';
-import {getData} from './index';
-import axios from 'axios';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { useFocusEffect } from '@react-navigation/native';
+import axios from 'axios';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from "expo-status-bar";
+import React, { useCallback, useState } from "react";
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getData } from './index';
 
 //mostly the same as the previous page but now deletion be cool
 
@@ -61,7 +60,7 @@ export default function RemoveScreen() {
 
   return (
     <>
-    <Stack.Screen options={{ title: 'Habit Deletion!' }} />
+    <Stack.Screen options={{ title: 'Habit Deletion!', headerShown: false }} />
     <StatusBar style="auto" />
       <Modal
         visible={openModal}
@@ -102,7 +101,7 @@ export default function RemoveScreen() {
           </View>
         </View>
       </Modal>
-    <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
+    <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10, paddingTop: 50}}>
       <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
       <View style ={{flexDirection:"row"}}>
       <AntDesign onPress={() => router.push("/habits")} name="back" size={30} color="black"/>

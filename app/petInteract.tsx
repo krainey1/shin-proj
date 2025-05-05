@@ -1,3 +1,4 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Image } from 'expo-image';
 import { Stack, useRouter } from 'expo-router';
 import React, { useEffect, useState } from "react";
@@ -84,8 +85,11 @@ export default function PetInteractScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Pet Interact' }} />
+      <Stack.Screen options={{ title: 'Pet Interact', headerShown: false }} />
       <View style={styles.container}>
+        <View style ={{flexDirection:"row", marginRight: 5, alignSelf: "flex-start"}}>
+        <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
+        </View>
         <Text style={styles.welcomeText}>Interact With Your Pet!</Text>
 
         <View style={styles.imagePlaceholder}>

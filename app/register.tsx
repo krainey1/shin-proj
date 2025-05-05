@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { Image } from 'expo-image';
 import { Stack, useRouter } from 'expo-router';
-import {Image} from 'expo-image';
 import React, { useState } from "react";
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { storeData } from './index';
@@ -44,7 +44,7 @@ export default function RegisterScreen() {
   }
   return (
     <>
-    <Stack.Screen options={{ title: 'Create Your Account!' }} />
+    <Stack.Screen options={{ title: 'Create Your Account!', headerShown: false }} />
     <View style={styles.container}>
       <Text style={styles.registerText}>Register for an account!</Text>
       <Image source={require('../assets/animations/happypenguin.gif')} style={styles.penguinImage}></Image>

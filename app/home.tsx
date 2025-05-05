@@ -134,7 +134,7 @@ export default function HomeScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Home' }} />
+      <Stack.Screen options={{ title: 'Home', headerShown: false }} />
 
       <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome!</Text>

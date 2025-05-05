@@ -1,6 +1,6 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import axios from 'axios';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { getData } from './index';
@@ -33,7 +33,7 @@ export default function createScreen() {
     }
   }
 
-  const addHabit = async (hname, dayss, reminder) => { //async execution
+  const addHabit = async () => { //async execution
     const id = await getData('userId'); //wait until we have the user id
     if(hname.trim() === '' || dayss.length == 0)
         {
@@ -57,7 +57,8 @@ export default function createScreen() {
   }
   return (
     <>
-    <View style={{padding: 15}}>
+    <Stack.Screen options={{ title: 'Create your account', headerShown: false }} />
+    <View style={{padding: 15, paddingTop: 50}}>
         <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
           <View style ={{flexDirection:"row"}}>
           <AntDesign onPress={() => router.replace("/habits")} name="back" size={30} color="black"/>
@@ -83,7 +84,7 @@ export default function createScreen() {
                 <Text style = {{color: "white"}}>Yes</Text>  
             </Pressable>
         </View>
-        <Pressable onPress = {() => addHabit(hname, dayss, reminder)} style = {{width: '100%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
+        <Pressable onPress = {() => addHabit()} style = {{width: '100%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
             <Text style = {{textAlign: "center", color: "white", fontWeight: "bold"}}> CREATE </Text>
         </Pressable>
     </View>
