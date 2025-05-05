@@ -33,7 +33,7 @@ export default function createScreen() {
     }
   }
 
-  const addHabit = async (hname, dayss, reminder) => { //async execution
+  const addHabit = async () => { //async execution
     const id = await getData('userId'); //wait until we have the user id
     if(hname.trim() === '' || dayss.length == 0)
         {
@@ -83,7 +83,7 @@ export default function createScreen() {
                 <Text style = {{color: "white"}}>Yes</Text>  
             </Pressable>
         </View>
-        <Pressable onPress = {() => addHabit(hname, dayss, reminder)} style = {{width: '100%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
+        <Pressable onPress = {() => addHabit()} style = {{width: '100%', marginTop: 15, marginBottom: 10, backgroundColor: "#DD856F", padding: 10, borderRadius: 8}}>
             <Text style = {{textAlign: "center", color: "white", fontWeight: "bold"}}> CREATE </Text>
         </Pressable>
     </View>

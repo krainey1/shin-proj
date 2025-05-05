@@ -1,3 +1,4 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { Stack } from 'expo-router';
 import React from "react";
 import { Linking, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -7,6 +8,9 @@ export default function ResourceScreen() {
     <>
       <Stack.Screen options={{ title: 'Mental Health Resources' }} />
       <View style={{ flex: 1 }}>
+      <View style ={{flexDirection:"row", marginRight: 5}}>
+      <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
+      </View>
         <ScrollView contentContainerStyle={styles.container}>
           <Text style={styles.header}>Resources!</Text>
 
