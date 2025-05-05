@@ -53,7 +53,7 @@ export default function LoginScreen() {
   } 
   return (
     <>
-    <Stack.Screen options={{ title: 'Login' }} />
+    <Stack.Screen options={{ title: 'Login', headerShown: false }} />
     <View style={styles.container}>
       <Image source={require('../assets/animations/happycat.gif')} style={styles.catImage}></Image>
       <TextInput
