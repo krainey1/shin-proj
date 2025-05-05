@@ -1,6 +1,6 @@
 import AntDesign from '@expo/vector-icons/AntDesign';
 import axios from 'axios';
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { getData } from './index';
@@ -57,6 +57,7 @@ export default function createScreen() {
   }
   return (
     <>
+    <Stack.Screen options={{ title: 'Create your account', headerShown: false }} />
     <View style={{padding: 15}}>
         <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
           <View style ={{flexDirection:"row"}}>

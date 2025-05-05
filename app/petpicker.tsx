@@ -38,7 +38,7 @@ export default function PetScreen() {
   return (
     
     <View style={styles.container}>
-      <Stack.Screen options={{ title: 'Pick Your Pet!' }} />
+      <Stack.Screen options={{ title: 'Pick Your Pet!', headerShown: false }} />
       <Text style={styles.title}>Pet Picking!</Text>
       <Text style={styles.text}>Touch a Pet to Pick One!</Text> 
 

@@ -7,7 +7,7 @@ export default function ResourceScreen() {
   const router = useRouter();
   return (
     <>
-      <Stack.Screen options={{ title: 'Mental Health Resources' }} />
+      <Stack.Screen options={{ title: 'Mental Health Resources', headerShown: false }} />
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
         <View style ={{flexDirection:"row", marginRight: 5, backgroundColor: "#E7E7E7", alignSelf: "flex-start"}}>

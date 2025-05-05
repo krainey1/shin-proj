@@ -1,12 +1,12 @@
-import React, {useState, useCallback} from "react";
-import {StyleSheet, View, Text, Button, ScrollView, Pressable, Modal, TouchableOpacity} from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import { Stack, useRouter } from 'expo-router';
-import {getData} from './index';
-import axios from 'axios';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useFocusEffect } from '@react-navigation/native';
+import axios from 'axios';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from "expo-status-bar";
+import React, { useCallback, useState } from "react";
+import { Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { getData } from './index';
 
 //Ant is very cool UI design library
 //Get day of current day of the week, for each habit extract the user days of their habits from their JSON, check against day of week, if match put habits in JSON object + send in response 
@@ -63,7 +63,7 @@ export default function HabitScreen() {
 
   return (
     <>
-    <Stack.Screen options={{ title: 'Your Habits!' }} />
+    <Stack.Screen options={{ title: 'Your Habits!', headerShown: false }} />
     <StatusBar style="auto" />
       <Modal
         visible={openModal}
