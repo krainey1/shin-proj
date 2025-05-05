@@ -64,6 +64,7 @@ export default function HabitScreen() {
   return (
     <>
     <Stack.Screen options={{ title: 'Your Habits!', headerShown: false }} />
+    <View style={{ flex: 1 }}>
     <StatusBar style="auto" />
       <Modal
         visible={openModal}
@@ -106,6 +107,7 @@ export default function HabitScreen() {
           </View>
         </View>
       </Modal>
+      </View>
     <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
       <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 15}}>
       <View style ={{flexDirection:"row", marginRight: 5}}>
