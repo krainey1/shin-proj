@@ -101,7 +101,7 @@ export default function RemoveScreen() {
           </View>
         </View>
       </Modal>
-    <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
+    <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10, paddingTop: 50}}>
       <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
       <View style ={{flexDirection:"row"}}>
       <AntDesign onPress={() => router.push("/habits")} name="back" size={30} color="black"/>

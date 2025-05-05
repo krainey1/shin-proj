@@ -58,7 +58,7 @@ export default function createScreen() {
   return (
     <>
     <Stack.Screen options={{ title: 'Create your account', headerShown: false }} />
-    <View style={{padding: 15}}>
+    <View style={{padding: 15, paddingTop: 50}}>
         <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 5}}>
           <View style ={{flexDirection:"row"}}>
           <AntDesign onPress={() => router.replace("/habits")} name="back" size={30} color="black"/>

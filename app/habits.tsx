@@ -107,7 +107,7 @@ export default function HabitScreen() {
         </View>
       </Modal>
       <View style={{ flex: 1 }}>
-    <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10}}>
+    <ScrollView style={{flex:1, backgroundColor:"#E7E7E7", padding:10, paddingTop: 50}}>
       <View style ={{flexDirection:"row", alignItems: "center", justifyContent:"space-between", paddingBottom: 15}}>
       <View style ={{flexDirection:"row", marginRight: 5}}>
       <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
