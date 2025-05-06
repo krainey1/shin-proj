@@ -39,8 +39,7 @@ export default function PetScreen() {
     
     <View style={styles.container}>
       <Stack.Screen options={{ title: 'Pick Your Pet!', headerShown: false }} />
-      <Text style={styles.title}>Pet Picking!</Text>
-      <Text style={styles.text}>Touch a Pet to Pick One!</Text> 
+      <Image source={require('../assets/banners/pick.png')} style={styles.text_banner}></Image>
 
       <View style={styles.grid}>
         {}
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     padding: 1,
     borderRadius: 10,
     borderWidth: 5,
-    borderColor: 'black',
+    borderColor: '#DD856F',
     backgroundColor: '#f0f0f0',
   },
   image: {
@@ -125,7 +124,13 @@ const styles = StyleSheet.create({
   {
     width: 110, 
     height: 105,
-  }
+  },
+  text_banner: {
+    width: 350,
+    height: 205,
+    marginTop: -100,
+    marginBottom: -10
+  },
 });
 
 

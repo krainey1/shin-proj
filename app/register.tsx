@@ -50,23 +50,26 @@ export default function RegisterScreen() {
       <View style ={{flexDirection:"row", marginRight: 5, alignSelf: "flex-start"}}>
       <AntDesign onPress={() => router.replace("/login")} name="arrowleft" size={30} color="black"/>
       </View>
-      <Text style={styles.registerText}>Register for an account!</Text>
+      <Image source={require('../assets/banners/create.png')} style={styles.text_banner}></Image>
       <Image source={require('../assets/animations/happypenguin.gif')} style={styles.penguinImage}></Image>
       <TextInput 
         style={styles.input}
         placeholder="Username"
+        placeholderTextColor='#DD856F'
         value = {user}
         onChangeText={(newText) => setUser(newText)}
       />
       <TextInput 
         style={styles.input}
         placeholder="Password"
+        placeholderTextColor='#DD856F'
         value = {pass}
         onChangeText={(newText) => setPass(newText)}
       />
       <TextInput 
         style={styles.input}
         placeholder="Email"
+        placeholderTextColor='#DD856F'
         value = {email}
         onChangeText={(newText) => setEmail(newText)}
       />
@@ -98,26 +101,27 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   customButton:{
-    width: 200,
-    height: 60,
+    width: 240,
+    height: 50,
     backgroundColor: '#DD856F',
     borderRadius: 23,
     justifyContent: 'center',
     alignItems: 'center',
     margin: 5,
+    marginTop: 20
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 15,
     fontWeight: 'bold',
     textAlign: 'center'
   },
   penguinImage: {
-    width: 200,
-    height: 310,
-    marginRight: 35,
-    marginBottom: 20
-
+    width: 175,
+    height: 250,
+    marginRight: 20,
+    marginTop: 20,
+    marginBottom: 30
   },
   textContainer:{
     flex: 1,
@@ -126,15 +130,21 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   input: {
-    marginTop: 10,
     width: 300,
     height: 50,
-    borderColor: 'gray',
+    borderColor: '#DD856F',
     borderWidth: 1,
     borderRadius: 20,
-    paddingHorizontal: 10,
-    backgroundColor: '#F5FCFF',
+    paddingHorizontal: 15,
+    backgroundColor: '#E7E7E7',
     margin: 5,
-    fontSize: 18
+    fontSize: 14,
+    color: '#DD856F'
+  },
+  text_banner: {
+    width: 350,
+    height: 205,
+    marginTop: -25,
+    marginBottom: -50
   },
 });

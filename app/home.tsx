@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
   text_banner: {
     width: 350,
     height: 205,
-    marginTop: 45,
+    marginTop: 20,
     marginBottom: -60
   },
 });
