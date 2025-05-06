@@ -64,6 +64,6 @@ const styles = StyleSheet.create({
     width: 350,
     height: 205,
     marginTop: 10,
-    marginBottom: -60
+    marginBottom: -40
   },
 });
