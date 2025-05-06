@@ -11,7 +11,7 @@ export default function ResourceScreen() {
       <Stack.Screen options={{ title: 'Mental Health Resources', headerShown: false }} />
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
-        <View style ={{flexDirection:"row", marginRight: 5, backgroundColor: "#E7E7E7", alignSelf: "flex-start"}}>
+        <View style ={{flexDirection:"row", marginRight: 10, marginTop: 40, backgroundColor: "#E7E7E7", alignSelf: "flex-start"}}>
         <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black" style={{ marginLeft: 10 }}/>
         </View>
           <Image source={require('../assets/banners/resources.png')} style={styles.text_banner}></Image>

@@ -87,7 +87,7 @@ export default function PetInteractScreen() {
     <>
       <Stack.Screen options={{ title: 'Pet Interact', headerShown: false }} />
       <View style={styles.container}>
-        <View style ={{flexDirection:"row", marginRight: 5, alignSelf: "flex-start"}}>
+        <View style ={{flexDirection:"row", marginRight: 5, marginTop: 30, alignSelf: "flex-start"}}>
         <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
         </View>
         <Image source={require('../assets/banners/interact.png')} style={styles.text_banner}></Image>
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   imagePlaceholder: {
     flex: 1,
     width: '100%',
-    marginTop: 20,
+    marginTop: 30,
     marginBottom: 20,
     backgroundColor: '#E7E7E7', 
     borderRadius: 20,
