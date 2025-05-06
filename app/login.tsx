@@ -145,7 +145,6 @@ const styles = StyleSheet.create({
     color: '#DD856F'
   },
   container_2: {
-    
     flexDirection:'row',
     gap: 10
     },

@@ -134,22 +134,18 @@ export default function HomeScreen() {
 
   return (
     <>
-      <Stack.Screen options={{ title: 'Home', headerShown: false }} />
+      <Stack.Screen options={{ title: 'Home' }} />
 
       <View style={styles.container}>
-        <Text style={styles.welcomeText}>Welcome!</Text>
-
-        <View style={styles.imagePlaceholder}>
-          {getPetGif() && (
+        <Image source={require('../assets/banners/welcome.png')} style={styles.text_banner}></Image>
+        {getPetGif() && (
             <Image
               source={getPetGif()}
               style={styles.petImage}
               contentFit="contain"
             />
           )}
-        </View>
 
-        <View style={styles.buttonGrid}>
           <TouchableOpacity style={styles.customButton} onPress={showHappyPopup}>
             <Text style={styles.buttonText}>Happy</Text>
           </TouchableOpacity>
@@ -166,7 +162,6 @@ export default function HomeScreen() {
             <Text style={styles.buttonText}>Habits</Text>
           </TouchableOpacity>
         </View>
-      </View>
     </>
   );
 }
@@ -176,45 +171,55 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#E7E7E7',
     alignItems: 'center',
-    padding: 20,
+    padding: 5,
   },
-  welcomeText: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginTop: 40,
-  },
-  imagePlaceholder: {
-    flex: 1,
-    width: '100%',
-    marginTop: 20,
-    marginBottom: 20,
-    backgroundColor: '#E7E7E7',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  //welcomeText: {
+    //fontSize: 32,
+    //fontWeight: 'bold',
+    //marginTop: 40,
+  //},
+  //imagePlaceholder: {
+    //flex: 1,
+    //width: '100%',
+    //marginTop: 5,
+    //marginBottom: 20,
+    //backgroundColor: '#E7E7E7',
+    //borderRadius: 20,
+    //justifyContent: 'center',
+    //alignItems: 'center',
+  //},
   petImage: {
-    width: '100%',
-    height: '100%',
+    width: 500,
+    height: 300,
+    marginLeft: 30,
+    marginTop: 10,
+    marginBottom: -18
   },
-  buttonGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginBottom: 30,
-  },
+  //buttonGrid: {
+    //flexDirection: 'row',
+    //flexWrap: 'wrap',
+    //justifyContent: 'center',
+    //marginBottom: 30,
+  //},
   customButton: {
-    width: 140,
-    height: 60,
+    width: 240,
+    height: 50,
     backgroundColor: '#DD856F',
     borderRadius: 23,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
+    marginTop: 15
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  text_banner: {
+    width: 350,
+    height: 205,
+    marginTop: 45,
+    marginBottom: -60
   },
 });

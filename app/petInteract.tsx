@@ -25,7 +25,7 @@ export default function PetInteractScreen() {
 
   const getStaticImage = (id: number) => {
     switch (id) {
-      case 1: return require('../assets/images/itty_bitty_kitty.jpg');
+      case 1: return require('../assets/images/itty_bitty_kitty_nobackground.png');
       case 2: return require('../assets/images/panda-colorcorrected.png');
       case 3: return require('../assets/images/npeng.png');
       case 4: return require('../assets/images/rock.png');
@@ -90,7 +90,7 @@ export default function PetInteractScreen() {
         <View style ={{flexDirection:"row", marginRight: 5, alignSelf: "flex-start"}}>
         <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
         </View>
-        <Text style={styles.welcomeText}>Interact With Your Pet!</Text>
+        <Image source={require('../assets/banners/interact.png')} style={styles.text_banner}></Image>
 
         <View style={styles.imagePlaceholder}>
           {currentImage && (
@@ -142,30 +142,37 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  petImage: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    alignSelf: 'center',
+    petImage: {
+      width: 500,
+      height: 300,
+      marginTop: 5,
+      marginBottom: 5
   },
   buttonGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    marginBottom: 30,
+    marginBottom: 100,
   },
   customButton: {
-    width: 140,
-    height: 60,
+    width: 240,
+    height: 50,
     backgroundColor: '#DD856F',
     borderRadius: 23,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10,
+    marginTop: 15
   },
   buttonText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: 'bold',
+    textAlign: 'center'
+  },
+  text_banner: {
+    width: 365,
+    height: 220,
+    marginTop: -12,
+    marginBottom: -70
   },
 });
