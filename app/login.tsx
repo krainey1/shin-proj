@@ -68,6 +68,7 @@ export default function LoginScreen() {
         placeholder="Password"
         placeholderTextColor='#DD856F'
         value = {password}
+        secureTextEntry={true}
         onChangeText={(newText) => setPassword(newText)}
         />
       {}

@@ -64,6 +64,7 @@ export default function RegisterScreen() {
         placeholder="Password"
         placeholderTextColor='#DD856F'
         value = {pass}
+        secureTextEntry={true}
         onChangeText={(newText) => setPass(newText)}
       />
       <TextInput 
