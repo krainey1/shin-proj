@@ -1,3 +1,4 @@
+import AntDesign from '@expo/vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { Image } from 'expo-image';
@@ -46,6 +47,9 @@ export default function RegisterScreen() {
     <>
     <Stack.Screen options={{ title: 'Create Your Account!', headerShown: false }} />
     <View style={styles.container}>
+      <View style ={{flexDirection:"row", marginRight: 5, alignSelf: "flex-start"}}>
+      <AntDesign onPress={() => router.replace("/login")} name="arrowleft" size={30} color="black"/>
+      </View>
       <Text style={styles.registerText}>Register for an account!</Text>
       <Image source={require('../assets/animations/happypenguin.gif')} style={styles.penguinImage}></Image>
       <TextInput 

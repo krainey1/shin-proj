@@ -11,7 +11,7 @@ export default function ResourceScreen() {
       <View style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
         <View style ={{flexDirection:"row", marginRight: 5, backgroundColor: "#E7E7E7", alignSelf: "flex-start"}}>
-        <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black"/>
+        <AntDesign onPress={() => router.replace("/home")} name="home" size={30} color="black" style={{ marginLeft: 10 }}/>
         </View>
           <Text style={styles.header}>Resources!</Text>
 
